@@ -50,7 +50,6 @@ function App() {
         <Routes>
           <Route path='/' element={<TaskList taskList={taskList} onClick={removeTask}/>} />
           <Route path='/add' element = { <TaskAdd  onClick={addNew}/>} />          
-          {/* <TaskList path  taskList={taskList} onClick={addNew}/> */}
         </Routes>
       
       

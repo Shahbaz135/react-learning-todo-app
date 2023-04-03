@@ -32,10 +32,12 @@ function addTask({onClick ,route, navigate}: any) {
                 <Link to='/'>Back</Link>
                 
             </button>
-            {isEdit ? 
+            {/* {isEdit ? 
             <button className="btn btn-success" onClick={() => onClick({newTask,isEdit, id})}>Update</button> : 
-            <button className="btn btn-success" onClick={() => onClick({newTask,isEdit, id})}>Add</button>}
-            {/* <button className="btn btn-success" onClick={() => onClick(newTask)}>Add</button> */}
+            <button className="btn btn-success" onClick={() => onClick({newTask,isEdit, id})}>Add</button>} */}
+            <button className="btn btn-success" onClick={() => onClick({newTask,isEdit, id})}>
+                {isEdit ? 'Update' : 'Add'} 
+            </button>
         </>
     )
 }

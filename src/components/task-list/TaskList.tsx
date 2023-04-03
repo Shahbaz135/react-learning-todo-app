@@ -1,7 +1,16 @@
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+import './TaskList.css';
 
 function TaskList({taskList, onClick}: any) {
-//    console.log(taskList)
+    const navigate = useNavigate();
+
+    function navigateTo(task: any) {
+        navigate('/add', {replace: true, state:{id: task.id, name: task.name} });
+    }
+
     return (
         <>
         <div className="row">
@@ -18,7 +27,11 @@ function TaskList({taskList, onClick}: any) {
         
         <ul className="list-group">
             {taskList.map((task: any) => (
-                <li className="list-group-item" key={task.id}>{task.name}</li>
+                <li className="list-group-item" key={task.id}>{task.name}
+                    <FontAwesomeIcon className='fa-icon' onClick={() => onClick(task)} icon={faTrash} />
+                    <FontAwesomeIcon className='fa-icon' onClick={() =>navigateTo(task)} icon={faEdit} />
+                </li>
+                
             ))}
         </ul>
         </>

@@ -1,8 +1,20 @@
 import { Link } from 'react-router-dom';
-import {useState } from 'react';
+import {useLocation} from 'react-router-dom';
+import React, {useState, useEffect } from 'react';
 
-function addTask({onClick}: any) {
+function addTask({onClick ,route, navigate}: any) {
     let [newTask, setValue] = useState();
+    let [id, setId] = useState(null);
+    let [isEdit, setEdit] = useState(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.state) {
+            setEdit(true);
+            setId(location.state.id);
+            setValue(location.state.name);
+        }
+    }, [])
 
     function handleChange(event: any) {
         setValue(event.target.value);
@@ -20,7 +32,10 @@ function addTask({onClick}: any) {
                 <Link to='/'>Back</Link>
                 
             </button>
-            <button className="btn btn-success" onClick={() => onClick(newTask)}>Add</button>
+            {isEdit ? 
+            <button className="btn btn-success" onClick={() => onClick({newTask,isEdit, id})}>Update</button> : 
+            <button className="btn btn-success" onClick={() => onClick({newTask,isEdit, id})}>Add</button>}
+            {/* <button className="btn btn-success" onClick={() => onClick(newTask)}>Add</button> */}
         </>
     )
 }

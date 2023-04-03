@@ -15,22 +15,40 @@ function App() {
   ]);
  
 
-  function addNew(item: any) {
+  function addNew({newTask, isEdit, id}: any) {
     let copy = taskList.slice();
-    copy.push({
-      id: copy.length + 1,
-      name: item
-    })
+    if (isEdit) {
+      let found = copy.find((x: any) => x.id == id);
+      if (found) {
+        found.name = newTask
+      } 
+    } else {
+      copy.push({
+        id: copy.length + 1,
+        name: newTask
+      })
+    } 
+
+    
 
     setList(copy);
     navigate('/', {replace: true});
+  }
+
+  function removeTask(item: any) {
+    taskList = taskList.filter((x: any) => x.id != item.id);
+    setList(taskList)
+  }
+
+  function editTask(item: any) {
+    
   }
 
   return (
     <>
       
         <Routes>
-          <Route path='/' element={<TaskList taskList={taskList} />} />
+          <Route path='/' element={<TaskList taskList={taskList} onClick={removeTask}/>} />
           <Route path='/add' element = { <TaskAdd  onClick={addNew}/>} />          
           {/* <TaskList path  taskList={taskList} onClick={addNew}/> */}
         </Routes>

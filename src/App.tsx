@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
+import Home from './components/home/Home';
 import TaskList from './components/task-list/TaskList';
 import TaskAdd from './components/task-add/TaskAdd';
 import './App.css';
@@ -29,8 +30,6 @@ function App() {
       })
     } 
 
-    
-
     setList(copy);
     navigate('/', {replace: true});
   }
@@ -40,19 +39,15 @@ function App() {
     setList(taskList)
   }
 
-  function editTask(item: any) {
-    
-  }
-
   return (
     <>
       
         <Routes>
-          <Route path='/' element={<TaskList taskList={taskList} onClick={removeTask}/>} />
-          <Route path='/add' element = { <TaskAdd  onClick={addNew}/>} />          
+          <Route path='/' element={<Home/>} >
+            <Route index element={<TaskList taskList={taskList} onClick={removeTask}/>} />
+            <Route path='add' element = { <TaskAdd  onClick={addNew}/>} />
+          </Route>
         </Routes>
-      
-      
     </>
     
   )
